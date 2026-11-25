@@ -8,6 +8,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\PasswordStrength;
+use Symfony\Component\Validator\Constraints\PasswordStrengthValidator;
+
 
 class ResetPasswordRequestFormType extends AbstractType
 {
@@ -19,14 +21,13 @@ class ResetPasswordRequestFormType extends AbstractType
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter your email',
+
+                        new passwordstregnht([
+                           min_strenght => PasswordStrength::STRENGTH_VERY_STRONG
+                        ])
                     ]),
                 ],
             ])
         ;
-    }
-
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults([]);
     }
 }

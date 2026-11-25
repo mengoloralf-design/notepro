@@ -67,4 +67,9 @@ class ChangePasswordFormType extends AbstractType
     {
         $resolver->setDefaults([]);
     }
+
+    #[Assert\PasswordStrength(
+        minScore: PasswordStrength::STRENGTH_VERY_STRONG, // Very strong password required
+    )]
+    protected $rawPassword;
 }
