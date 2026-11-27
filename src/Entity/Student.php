@@ -74,4 +74,22 @@ class Student extends User
         }
         return null;
     }
+
+    public function getAverage(): ?float
+    {
+        $totalPointsSur20 = 0;
+        $nbNotes = 0;
+
+        foreach ($this->getGrades() as $grade) {
+            if ($grade->isPresent() && $grade->getGrade() !== null) {
+                $bareme = $grade->getEvaluation()->getBareme();
+                if ($bareme > 0) {
+                    $totalPointsSur20 += ((float) $grade->getGrade() / $bareme) * 20;
+                    $nbNotes++;
+                }
+            }
+        }
+
+        return $nbNotes > 0 ? round($totalPointsSur20 / $nbNotes, 2) : null;
+    }
 }

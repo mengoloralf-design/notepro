@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Professor;
+use App\Entity\User;
 use App\Form\ConfigProfType;
 use App\Form\SelectSubjectType;
 use App\Form\SubjectType;
@@ -11,9 +12,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class ConfigProfController extends AbstractController
 {
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/configprof/{id}', name: 'app_config_prof')]
     public function index(Request $request, EntityManagerInterface $entityManager, Professor $professor): Response
     {
@@ -36,6 +39,8 @@ class ConfigProfController extends AbstractController
         $formProfs = $this->createForm(ConfigProfType::class, $professor);
         $formProfs->remove('subjects');
         $formProfs->remove('classes');
+
+
 
         $formProfs->handleRequest($request);
 

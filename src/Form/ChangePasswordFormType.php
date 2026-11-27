@@ -45,6 +45,11 @@ class ChangePasswordFormType extends AbstractType
                         new NotBlank([
                             'message' => 'Saisissez un mot de passe',
                         ]),
+
+                        new PasswordStrength([
+                            'minScore' => PasswordStrength::STRENGTH_STRONG,
+                            'message' => 'Le mot de passe doit avoir une entropie d au moins 60.',
+                        ]),
                     ],
                     'label' => 'Nouveau mot de passe',
                     'attr' => [
@@ -67,9 +72,4 @@ class ChangePasswordFormType extends AbstractType
     {
         $resolver->setDefaults([]);
     }
-
-    #[Assert\PasswordStrength(
-        minScore: PasswordStrength::STRENGTH_VERY_STRONG, // Very strong password required
-    )]
-    protected $rawPassword;
 }

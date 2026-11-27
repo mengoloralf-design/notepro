@@ -206,4 +206,19 @@ class Evaluation
 
         return $this;
     }
+
+    public function getAverage(): ?float
+    {
+        $somme = 0;
+        $nbPresents = 0;
+
+        foreach ($this->getGrades() as $grade) {
+            if ($grade->isPresent() && $grade->getGrade() !== null) {
+                $somme += (float) $grade->getGrade();
+                $nbPresents++;
+            }
+        }
+
+        return $nbPresents > 0 ? round($somme / $nbPresents, 2) : null;
+    }
 }

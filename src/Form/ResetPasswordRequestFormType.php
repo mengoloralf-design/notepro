@@ -22,9 +22,10 @@ class ResetPasswordRequestFormType extends AbstractType
                     new NotBlank([
                         'message' => 'Please enter your email',
 
-                        new passwordstregnht([
-                           min_strenght => PasswordStrength::STRENGTH_VERY_STRONG
-                        ])
+                        new PasswordStrength([
+                            'minStrenght' => PasswordStrength::STRENGTH_STRONG,
+                            'message' => 'Le mot de passe doit avoir une entropie d\'au moins 60.',
+                        ]),
                     ]),
                 ],
             ])
